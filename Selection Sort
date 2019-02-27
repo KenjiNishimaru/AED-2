@@ -1,0 +1,35 @@
+#include <stdlib.h>
+#include <stdio.h>
+#define MAX 5
+
+/// Selection Sort ///
+
+int main(){
+
+    int vetor[MAX],i,j,aux,aux2;
+
+    for(i=0;i<MAX;i++){
+        scanf("%d",&vetor[i]);
+    }
+
+    for(i=0;i<MAX-1;i++){
+        aux = i;
+        for(j=i+1;j<MAX;j++){
+            if(vetor[aux] > vetor[j]){
+                aux = j;
+            }
+        }
+        if(i!=aux){
+            aux2=vetor[i];
+            vetor[i]=vetor[aux];
+            vetor[aux]=aux2;
+        }
+
+    }
+
+    for(i=0;i<MAX;i++){
+        printf("%d\t",vetor[i]);
+    }
+
+    return 0;
+}
