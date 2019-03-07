@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX 5
+
+/// INSERTION SORT ///
+
+int main()
+{
+    int vetor[MAX],i,j,aux;
+
+    for(i=0;i<MAX;i++){
+        scanf("%d",&vetor[i]);
+    }
+
+    for (i = 1; i < MAX; i++) {
+            j = i;
+            while (j > 0 && vetor[j - 1] > vetor[j]) {
+                  aux = vetor[j];
+                  vetor[j] = vetor[j - 1];
+                  vetor[j - 1] = aux;
+                  j--;
+            }
+    }
+
+    for(i=0;i<MAX;i++){
+        printf("%d\t",vetor[i]);
+    }
+
+    return 0;
+}
