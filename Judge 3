@@ -35,7 +35,6 @@ PLista insere_lista(PLista p, int senha, int valor){
         }
         novo->prox = q;
         ant->prox = novo;
-        //novo->prox = p;
         return p;
     }
 
@@ -44,21 +43,36 @@ PLista insere_lista(PLista p, int senha, int valor){
 PLista remove_lista(PLista p){
     PLista q;
     if(p != NULL && p->prox!=NULL){
-        q = p->prox;
-        printf("%d",p->senha);
-        free(p);
-        return q;
+        if(p->valor == p->prox->valor){
+            if(p->senha < p->prox->senha){
+                q = p->prox;
+                printf("%d\n",p->senha);
+                free(p);
+                return q;
+            }
+            else{
+                printf("%d\n",p->prox->senha);
+                p->prox=p->prox->prox;
+                return p;
+            }
+        }
+        else{
+            q = p->prox;
+            printf("%d\n",p->senha);
+            free(p);
+            return q;
+        }
     }
     else if(p !=NULL && p->prox == NULL){
-        printf("%d",p->senha);
+        printf("%d\n",p->senha);
         free (p);
         return NULL;
     }
-    else{
-        printf("0");
+    else if(p == NULL){
+        printf("0\n");
         return NULL;
     }
-
+    return NULL;
 }
 
 int main()
@@ -80,15 +94,3 @@ int main()
     }
     return 0;
 }
-
-/*
-for (i = 1; i < MAX; i++) {
-            j = i;
-            while (j > 0 && vetor[j - 1] > vetor[j]) {
-                  aux = vetor[j];
-                  vetor[j] = vetor[j - 1];
-                  vetor[j - 1] = aux;
-                  j--;
-            }
-    }
-*/
