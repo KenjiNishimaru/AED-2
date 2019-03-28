@@ -1,32 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define MAX 100
-
-void insere(int vet[],int indice,int diferenca){
-    vet[indice] = diferenca;
-    printf("Entrou no vetor\n");
-}
-
-void ordenacao(int vet[], int indice){ /// BUBBLE SORT
-
-    int a,b=indice,aux;
-    for(a=0;a<indice-1;a++){
-        for(b=a+1;b<indice;b++){
-            if(vet[a]>vet[b]){
-                aux=vet[a];
-                vet[a]=vet[b];
-                vet[b]=aux;
-            }
-        }
-    }
-}
-
 int main()
 {
-    int N,G,i,R,S,vet[MAX],pontos=0,indice=0,diferenca;
+    int N,G,i,R,S,*vet,pontos=0,indice=0,value,gap=1,a,diferenca,b;
     scanf("%d",&N);
+    vet = malloc(N*sizeof(int));
     scanf("%d",&G);
-
+ 
     for(i=0;i<N;i++){
         scanf("%d",&S);
         scanf("%d",&R);
@@ -38,23 +18,42 @@ int main()
                 G = G - 1;
              }
         else if(S == R && G == 0){ /// EMPATE SEM SALDO
-                pontos++;
+                pontos = pontos + 1;
              }
         else if(R > S){  /// DERROTA
                 diferenca = R - S;
-                insere(vet,indice,diferenca);
+                vet[indice] = diferenca;
                 indice++;
              }
     }
-    ordenacao(vet,indice);
-
+ 
+        while(gap < indice) {
+            gap = 3*gap+1;
+        }
+        while ( gap > 1) {
+            gap /= 3;
+            for(a = gap; a < indice; a++) {
+                value = vet[a];
+                b = a;
+                while (b >= gap && value < vet[b - gap]) {
+                    vet[b] = vet [b - gap];
+                    b = b - gap;
+                }
+                vet [b] = value;
+            }
+        }
+ 
     for(i=0;i<indice;i++){
         if(G > vet[i]){
             pontos = pontos + 3;
             G = G - vet[i] - 1;
         }
+        else if(G == vet[i]){
+                pontos = pontos +1;
+                G--;
+             }
     }
-
     printf("%d",pontos);
+    free(vet);
     return 0;
 }
