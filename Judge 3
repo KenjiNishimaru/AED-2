@@ -1,0 +1,94 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Lista{
+    int senha;
+    int valor;
+    struct Lista *prox;
+}TLista;
+typedef TLista* PLista;
+
+PLista insere_lista(PLista p, int senha, int valor){
+    PLista novo = (PLista)malloc(sizeof(TLista));
+    novo->senha = senha;
+    novo->valor = valor;
+    if(p  == NULL || novo->valor > p->valor){
+        novo->prox = p;
+        return novo;
+    }
+    else if(p->prox == NULL){
+        if(novo->valor > p->valor){
+            novo->prox = p;
+            return novo;
+        }
+        else{
+            p->prox = novo;
+            return p;
+        }
+    }
+    else{
+        PLista q = p;
+        PLista ant;
+        while(novo->valor < q->valor){
+            ant = q;
+            q = q->prox;
+        }
+        novo->prox = q;
+        ant->prox = novo;
+        //novo->prox = p;
+        return p;
+    }
+
+}
+
+PLista remove_lista(PLista p){
+    PLista q;
+    if(p != NULL && p->prox!=NULL){
+        q = p->prox;
+        printf("%d",p->senha);
+        free(p);
+        return q;
+    }
+    else if(p !=NULL && p->prox == NULL){
+        printf("%d",p->senha);
+        free (p);
+        return NULL;
+    }
+    else{
+        printf("0");
+        return NULL;
+    }
+
+}
+
+int main()
+{
+    char x;
+    int senha = 1,valor;
+    PLista p = NULL;
+    scanf("%c",&x);
+    while(x != 'f'){
+        if(x == 'c'){
+            scanf("%d",&valor);
+            p = insere_lista(p,senha,valor);
+            senha = senha +1;
+        }
+        if(x == 'v'){
+            p = remove_lista(p);
+        }
+        scanf("%c",&x);
+    }
+    return 0;
+}
+
+/*
+for (i = 1; i < MAX; i++) {
+            j = i;
+            while (j > 0 && vetor[j - 1] > vetor[j]) {
+                  aux = vetor[j];
+                  vetor[j] = vetor[j - 1];
+                  vetor[j - 1] = aux;
+                  j--;
+            }
+    }
+*/
