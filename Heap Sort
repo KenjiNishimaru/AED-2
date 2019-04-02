@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+/// HEAP SORT ///
+
+void heap(int *vet, int i , int n){
+    int maior,aux;
+    if(i*2 <= n && vet[i*2] > vet[i])
+        maior = i*2;
+    else
+        maior = i;
+    if(i*2+1 <= n && vet[i*2+1] > vet[maior])
+        maior = i*2+1;
+    if(maior != i){
+        aux = vet[i];
+        vet[i] = vet[maior];
+        vet[maior] = aux;
+        heap(vet,maior,n);
+    }
+}
+
+int main(){
+    int n,i,m,aux;
+    scanf("%d",&n);
+    int vet [n+1];
+    for (i =1 ; i <= n ; i++){  
+        scanf("%d",&vet[i]);
+    }
+    for (i = n/2 ; i >= 1 ; i--){
+        heap(vet,i,n);
+    }
+    for(m = n; m > 1 ;m--){
+        aux = vet[1];
+        vet[1] = vet[m];
+        vet[m]= aux;
+        heap(vet,1,m-1);
+    }
+    for (i = 1; i <= n ; i++){ 
+        printf("%d ",vet[i]);
+    }
+    return 0;
+}
