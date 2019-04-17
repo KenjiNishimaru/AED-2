@@ -1,0 +1,34 @@
+#include <stdlib.h>
+#include <stdio.h>
+#define MAX 5
+
+int busca(int *a, int valor){
+	int i;
+	int tam;
+	tam = sizeof(a)/sizeof(int);
+	for(i = 0 ; i < tam ; i++){
+		if(a[i] == valor){
+			return 1;
+		}
+	}
+	return 0;
+}
+int main(){
+	int *vet;
+	vet = malloc(5*sizeof(int));
+	int i;
+	for(i=0;i<MAX;i++){
+		scanf("%d",&vet[i]);
+	}
+
+	if(busca(vet,2) == 1){
+		printf("achou!");
+	}
+	else{
+		printf("nao achou.");
+	}
+
+	free(vet);
+	return 0;
+
+}
